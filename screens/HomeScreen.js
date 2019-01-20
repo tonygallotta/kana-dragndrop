@@ -12,6 +12,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import mascot from '../assets/images/catpix-blue.png';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -31,20 +32,39 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            <Text style={styles.appTitle}>Kana Drag n Drop</Text>
+            <Text style={styles.appTitle}>
+              <Text style={{ color: 'red' }}>K</Text>
+              <Text style={{ color: 'orange' }}>A</Text>
+              <Text style={{ color: 'yellow' }}>N</Text>
+              <Text style={{ color: 'lime' }}>A </Text>
+              <Text style={{ color: 'deepskyblue' }}>D</Text>
+              <Text style={{ color: 'magenta' }}>R</Text>
+              <Text style={{ color: 'gold' }}>A</Text>
+              <Text style={{ color: 'red' }}>G </Text>
+              <Text style={{ color: 'orange' }}>'N </Text>
+              <Text style={{ color: 'yellow' }}>D</Text>
+              <Text style={{ color: 'lime' }}>R</Text>
+              <Text style={{ color: 'deepskyblue' }}>O</Text>
+              <Text style={{ color: 'magenta' }}>P</Text>
+            </Text>
           </View>
           <View style={styles.buttonContainer}>
-            <Button style={styles.mainMenuButton} title="Hiragana" onPress={() => navigate('DragNDrop', {kanaType: 'hiragana'})} />
-            <Button style={styles.mainMenuButton} title="Katakana" onPress={() => navigate('DragNDrop', {kanaType: 'katakana'})} />
+            <TouchableOpacity style={styles.mainMenuButton} 
+                onPress={() => navigate('DragNDrop', {kanaType: 'hiragana'})}>
+              <Text style={styles.mainMenuButton}>HIRAGANA</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.mainMenuButton} 
+                onPress={() => navigate('DragNDrop', {kanaType: 'katakana'})}>
+              <Text style={styles.mainMenuButton}>KATAKANA</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.mainMenuButton} 
+                onPress={() => navigate('About')}>
+              <Text style={styles.mainMenuButton}>ABOUT</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
+        <View style={styles.mascotContainer}>
+          <Image source={mascot} style={styles.mascot} />
         </View>
       </View>
     );
@@ -87,101 +107,41 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
+    marginTop: 0,
+    backgroundColor: 'darkslategrey',
   },
   contentContainer: {
     paddingTop: 30,
   },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   appTitle: {
-    fontSize: 40,
-    fontWeight: 'bold',
+    fontSize: 30,
+    fontFamily: 'press-start-2p',
+    textAlign: 'center'
   },
   mainMenuButton: {
-    marginTop: 20,
-    marginBottom: 20,
-    height: 100,
-    fontSize: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: 24,
+    textAlign: 'center',
+    color: 'white',
+    fontFamily: 'press-start-2p',
   },
   buttonContainer: {
     margin: 20
   },
+  mascotContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    // width: 200
+  },
+  mascot: {
+    width: 100,
+    height: 100,
+  }
 });

@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { ScreenOrientation } from 'expo';
+import _ from 'underscore'
 
 const HIRAGANA = [
   {id: 1, englishCharacter: "a", kanaCharacter: "あ"}, 
@@ -151,11 +152,34 @@ class KanaEnglishPair extends React.Component {
   		styles.englishCharLong : styles.englishChar;
     const kanaCharacterStyle = this.state.matched ? styles.kanaCharacterMatchedStyle :
       styles.kanaCharacterUnmatchedStyle 
+    let column = 'A'
+    switch (englishChar[0]) {
+      case "n":
+        column = englishChar.length == 1 ? 'W' : 'N'
+        break
+      case "t":
+      case "c":
+        // fall through
+        column = 'T'
+        break
+      case "h":
+        column = 'H'
+        break
+      case "k":
+      case "s":
+      case "f":
+      case "m":
+      case "r":
+      case "y":
+      case "w":
+        column = englishChar[0].toUpperCase()
+        break
+    }
     return <View style={styles.kanaEnglishPairContainer}>
   		<View style={styles.kanaInput} onLayout={this.onLayout} ref={(ref) => {this.view = ref}}>
         <Text style={kanaCharacterStyle}>{this.props.kanaCharacter}</Text>
       </View>
-  		<Text style={englishCharStyle}>{this.props.englishChar}</Text>
+  		<Text style={[englishCharStyle, styles['column' + column]]}>{this.props.englishChar}</Text>
   	</View>
   }
 }
@@ -209,9 +233,14 @@ class KanaCharacter extends React.Component {
       transform: this.state.pan.getTranslateTransform(),
     }
     if (this.state.showDraggable) {
+      marginStyle = {
+        marginTop: _.random(0, 10),
+        marginLeft: _.random(0, 10),
+        paddingLeft: _.random(0, 10),
+      }
       return <Animated.View
         {...this.panResponder.panHandlers}
-        style={panStyle}>
+        style={[panStyle, marginStyle]}>
         <Text style={styles.kanaCharacter}>{this.props.kanaCharacter.kanaCharacter}</Text>
       </Animated.View>
     } else {
@@ -223,11 +252,16 @@ class KanaCharacter extends React.Component {
 }
 
 export default class DragNDropScreen extends React.Component {
+  
+  static navigationOptions = {
+    header: null,
+  }
 
   constructor () {
     super()
     this.dropTargets = []
   }
+
   componentDidMount() {
     ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE_RIGHT);
   }
@@ -238,7 +272,7 @@ export default class DragNDropScreen extends React.Component {
 
   createDraggables () {
     let kana = []
-    const kanaSet = this.kanaSet
+    const kanaSet = _.shuffle(this.kanaSet)
     for (let i = 0; i < 46; i++) {
       kana.push(<KanaCharacter key={i + 1} 
         kanaCharacter={kanaSet[i]} 
@@ -275,19 +309,19 @@ export default class DragNDropScreen extends React.Component {
 
   createPairView (key, english) {
     const kana = this.kanaSet[key - 1].kanaCharacter
-    return <KanaEnglishPair key={key} englishChar={english} kanaCharacter={kana} ref={(ref) => {this.dropTargets[key] = ref}}/>
+    return <KanaEnglishPair 
+      key={key} 
+      englishChar={english} 
+      kanaCharacter={kana} 
+      ref={(ref) => {this.dropTargets[key] = ref}}
+      />
   }
 
   render() {
     const kanaType = this.props.navigation.getParam('kanaType', 'hiragana');
     this.kanaSet = kanaType == 'hiragana' ? HIRAGANA : KATAKANA;
     return (
-      <View style={{
-        flex: 1, 
-        flexDirection: 'column',
-        alignItems: 'stretch',
-        justifyContent: 'flex-end',
-      }}>
+      <View style={styles.container}>
       	<View style={{
           flex: 7,
           flexDirection: 'row',
@@ -297,70 +331,70 @@ export default class DragNDropScreen extends React.Component {
           marginLeft: 10,
           marginRight: 10,
         }}>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnWa]}>
           	{this.createPairView(44, "wa")}
           	<KanaEnglishPairBlank />
           	{this.createPairView(45, "wo")}
           	<KanaEnglishPairBlank />
           	{this.createPairView(46, "n")}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnRa]}>
           	{this.createPairView(39, "ra")}
           	{this.createPairView(40, "ri")}
           	{this.createPairView(41, "ru")}
           	{this.createPairView(42, "re")}
           	{this.createPairView(43, "ro")}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnYa]}>
           	{this.createPairView(36, "ya")}
           	<KanaEnglishPairBlank />
           	{this.createPairView(37, "yu")}
           	<KanaEnglishPairBlank />
           	{this.createPairView(38, "yo")}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnMa]}>
           	{this.createPairView(31, "ma")}
           	{this.createPairView(32, "mi")}
           	{this.createPairView(33, "mu")}
           	{this.createPairView(34, "me")}
           	{this.createPairView(35, "mo")}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnHa]}>
             {this.createPairView(26, "ha")}
             {this.createPairView(27, "hi")}
             {this.createPairView(28, "hu")}
             {this.createPairView(29, "he")}
             {this.createPairView(30, "ho")}
           </View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnNa]}>
           	{this.createPairView(21, "na")}
           	{this.createPairView(22, "ni")}
           	{this.createPairView(23, "nu")}
           	{this.createPairView(24, "ne")}
           	{this.createPairView(25, "no" )}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnTa]}>
           	{this.createPairView(16, "ta")}
           	{this.createPairView(17, "chi")}
           	{this.createPairView(18, "tsu")}
           	{this.createPairView(19, "te")}
           	{this.createPairView(20, "to")}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnSa]}>
           	{this.createPairView(11, "sa")}
           	{this.createPairView(12, "shi")}
           	{this.createPairView(13, "su")}
           	{this.createPairView(14, "se")}
           	{this.createPairView(15, "so")}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnKa]}>
           	{this.createPairView(6, "ka")}
           	{this.createPairView(7, "ki" )}
           	{this.createPairView(8, "ku" )}
           	{this.createPairView(9, "ke" )}
           	{this.createPairView(10, "ko" )}
         	</View>
-          <View style={styles.kanaColumn}>
+          <View style={[styles.kanaColumn, styles.columnA]}>
             {this.createPairView(1, "a")}
             {this.createPairView(2, "i" )}
             {this.createPairView(3, "u" )}
@@ -368,16 +402,7 @@ export default class DragNDropScreen extends React.Component {
             {this.createPairView(5, "o" )}
           </View>
     	</View>
-      <View style={{
-        flex: 3, 
-        flexDirection: 'row', 
-        backgroundColor: 'skyblue',
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 10,
-        alignSelf: 'baseline',
-        flexWrap: 'wrap',
-      }}>
+      <View style={styles.kanaToDragContainer}>
         {this.createDraggables()}
       </View>
     </View>
@@ -386,32 +411,75 @@ export default class DragNDropScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    marginTop: 20,
+    backgroundColor: 'darkslategrey',
+  },
 	kanaColumn: {
 		width: 54, 
-		backgroundColor: 'steelblue',
+  //   borderWidth: 1,
+		// borderColor: 'deepskyblue',
 		textAlign: 'right',
 	},
+  columnA: {
+    color: 'red',
+  },
+  columnK: {
+    color: 'gold',
+  },
+  columnS: {
+    color: 'orange',
+  },
+  columnT: {
+    color: 'lime',
+  },
+  columnN: {
+    color: 'deepskyblue',
+  },
+  columnH: {
+    color: 'magenta',
+  },
+  columnM: {
+    color: 'red',
+  },
+  columnR: {
+    color: 'gold',
+  },
+  columnY: {
+    color: 'orange',
+  },
+  columnW: {
+    color: 'lime',
+  },
   kanaCharacter: {
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: 'bold',
+    color: 'white',
     width: 30,
   },
 	englishChar: {
-		color: '#fff',
+		// color: 'white',
 		paddingTop: 5,
 		paddingBottom: 5,
 		paddingRight: 4,
 		textAlign: 'right',
 		width: 22,
+    fontFamily: 'zcool',
+    fontSize: 20,
 	},
 	englishCharLong: {
-		color: '#fff',
+		// color: 'white',
 		paddingTop: 5,
 		paddingBottom: 5,
 		paddingRight: 0,
 		textAlign: 'right',
 		width: 22,
+    fontFamily: 'zcool',
+    fontSize: 18,
 	},
 	kanaInput: {
 		height: 20,
@@ -439,5 +507,15 @@ const styles = StyleSheet.create({
 	kanaEnglishPairContainer: {
 		flex: 2,
 		flexDirection: 'row',
-	}
+	},
+  kanaToDragContainer: {
+    flex: 3, 
+    flexDirection: 'row', 
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    alignSelf: 'baseline',
+    flexWrap: 'wrap',
+    color: 'white',
+  }
 })
