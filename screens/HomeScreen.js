@@ -13,18 +13,12 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import mascot from '../assets/images/catpix-blue.png';
+import { appStyles } from '../constants/AppStyles';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
-
-  onHiraganaChosen() {
-  }
-
-  onKatakanaChosen () {
-
-  }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -58,50 +52,21 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.mainMenuButton}>KATAKANA</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.mainMenuButton} 
+                onPress={() => navigate('Win')}>
+              <Text style={styles.mainMenuButton}>WIN</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.mainMenuButton} 
                 onPress={() => navigate('About')}>
               <Text style={styles.mainMenuButton}>ABOUT</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <View style={styles.mascotContainer}>
-          <Image source={mascot} style={styles.mascot} />
+        <View style={appStyles.mascotContainer}>
+          <Image source={mascot} style={appStyles.mascot} />
         </View>
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
@@ -116,7 +81,6 @@ const styles = StyleSheet.create({
   welcomeContainer: {
     alignItems: 'center',
     paddingTop: 20,
-    paddingBottom: 20,
   },
   appTitle: {
     fontSize: 30,
@@ -134,14 +98,4 @@ const styles = StyleSheet.create({
   buttonContainer: {
     margin: 20
   },
-  mascotContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    // width: 200
-  },
-  mascot: {
-    width: 100,
-    height: 100,
-  }
 });

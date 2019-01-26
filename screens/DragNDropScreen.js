@@ -13,104 +13,7 @@ import {
 } from 'react-native';
 import { ScreenOrientation } from 'expo';
 import _ from 'underscore'
-
-const HIRAGANA = [
-  {id: 1, englishCharacter: "a", kanaCharacter: "あ"}, 
-  {id: 2, englishCharacter: "i", kanaCharacter: "い"},
-  {id: 3, englishCharacter: "u", kanaCharacter: "う"},
-  {id: 4, englishCharacter: "e", kanaCharacter: "え"},
-  {id: 5, englishCharacter: "o", kanaCharacter: "お"},
-  {id: 6, englishCharacter: "ka", kanaCharacter: "か"},
-  {id: 7, englishCharacter: "ki", kanaCharacter: "き"},
-  {id: 8, englishCharacter: "ku", kanaCharacter: "く"},
-  {id: 9, englishCharacter: "ke", kanaCharacter: "け"},
-  {id: 10, englishCharacter: "ko", kanaCharacter: "こ"},
-  {id: 11, englishCharacter: "sa", kanaCharacter: "さ"},
-  {id: 12, englishCharacter: "shi", kanaCharacter: "し"},
-  {id: 13, englishCharacter: "su", kanaCharacter: "す"},
-  {id: 14, englishCharacter: "se", kanaCharacter: "せ"},
-  {id: 15, englishCharacter: "so", kanaCharacter: "そ"},
-  {id: 16, englishCharacter: "ta", kanaCharacter: "た"},
-  {id: 17, englishCharacter: "chi", kanaCharacter: "ち"},
-  {id: 18, englishCharacter: "tsu", kanaCharacter: "つ"},
-  {id: 19, englishCharacter: "te", kanaCharacter: "て"},
-  {id: 20, englishCharacter: "to", kanaCharacter: "と"},
-  {id: 21, englishCharacter: "na", kanaCharacter: "な"},
-  {id: 22, englishCharacter: "ni", kanaCharacter: "に"},
-  {id: 23, englishCharacter: "nu", kanaCharacter: "ぬ"},
-  {id: 24, englishCharacter: "ne", kanaCharacter: "ね"},
-  {id: 25, englishCharacter: "no", kanaCharacter: "の"},
-  {id: 26, englishCharacter: "ha", kanaCharacter: "は"},
-  {id: 27, englishCharacter: "hi", kanaCharacter: "ひ"},
-  {id: 28, englishCharacter: "fu", kanaCharacter: "ふ"},
-  {id: 29, englishCharacter: "he", kanaCharacter: "へ"},
-  {id: 30, englishCharacter: "ho", kanaCharacter: "ほ"},
-  {id: 31, englishCharacter: "ma", kanaCharacter: "ま"},
-  {id: 32, englishCharacter: "mi", kanaCharacter: "み"},
-  {id: 33, englishCharacter: "mu", kanaCharacter: "む"},
-  {id: 34, englishCharacter: "me", kanaCharacter: "め"},
-  {id: 35, englishCharacter: "mo", kanaCharacter: "も"},
-  {id: 36, englishCharacter: "ya", kanaCharacter: "や"},
-  {id: 37, englishCharacter: "yu", kanaCharacter: "ゆ"},
-  {id: 38, englishCharacter: "yo", kanaCharacter: "よ"},
-  {id: 39, englishCharacter: "ra", kanaCharacter: "ら"},
-  {id: 40, englishCharacter: "ri", kanaCharacter: "り"},
-  {id: 41, englishCharacter: "ru", kanaCharacter: "る"},
-  {id: 42, englishCharacter: "re", kanaCharacter: "れ"},
-  {id: 43, englishCharacter: "ro", kanaCharacter: "ろ"},
-  {id: 44, englishCharacter: "wa", kanaCharacter: "わ"},
-  {id: 45, englishCharacter: "wo", kanaCharacter: "を"},
-  {id: 46, englishCharacter: "n", kanaCharacter: "ん"},
-];
-
-const KATAKANA = [
-  {id: 1, englishCharacter: "a", kanaCharacter: "ア"},
-  {id: 2, englishCharacter: "i", kanaCharacter: "イ"},
-  {id: 3, englishCharacter: "u", kanaCharacter: "ウ"},
-  {id: 4, englishCharacter: "e", kanaCharacter: "エ"},
-  {id: 5, englishCharacter: "o", kanaCharacter: "オ"},
-  {id: 6, englishCharacter: "ka", kanaCharacter: "カ"},
-  {id: 7, englishCharacter: "ki", kanaCharacter: "キ"},
-  {id: 8, englishCharacter: "ku", kanaCharacter: "ク"},
-  {id: 9, englishCharacter: "ke", kanaCharacter: "ケ"},
-  {id: 10, englishCharacter: "ko", kanaCharacter: "コ"},
-  {id: 11, englishCharacter: "sa", kanaCharacter: "サ"},
-  {id: 12, englishCharacter: "shi", kanaCharacter: "シ"},
-  {id: 13, englishCharacter: "su", kanaCharacter: "ス"},
-  {id: 14, englishCharacter: "se", kanaCharacter: "セ"},
-  {id: 15, englishCharacter: "so", kanaCharacter: "ソ"},
-  {id: 16, englishCharacter: "ta", kanaCharacter: "タ"},
-  {id: 17, englishCharacter: "chi", kanaCharacter: "チ"},
-  {id: 18, englishCharacter: "tsu", kanaCharacter: "ツ"},
-  {id: 19, englishCharacter: "te", kanaCharacter: "テ"},
-  {id: 20, englishCharacter: "to", kanaCharacter: "ト"},
-  {id: 21, englishCharacter: "na", kanaCharacter: "ナ"},
-  {id: 22, englishCharacter: "ni", kanaCharacter: "ニ"},
-  {id: 23, englishCharacter: "nu", kanaCharacter: "ヌ"},
-  {id: 24, englishCharacter: "ne", kanaCharacter: "ネ"},
-  {id: 25, englishCharacter: "no", kanaCharacter: "ノ"},
-  {id: 26, englishCharacter: "ha", kanaCharacter: "ハ"},
-  {id: 27, englishCharacter: "hi", kanaCharacter: "ヒ"},
-  {id: 28, englishCharacter: "fu", kanaCharacter: "フ"},
-  {id: 29, englishCharacter: "he", kanaCharacter: "ヘ"},
-  {id: 30, englishCharacter: "ho", kanaCharacter: "ホ"},
-  {id: 31, englishCharacter: "ma", kanaCharacter: "マ"},
-  {id: 32, englishCharacter: "mi", kanaCharacter: "ミ"},
-  {id: 33, englishCharacter: "mu", kanaCharacter: "ム"},
-  {id: 34, englishCharacter: "me", kanaCharacter: "メ"},
-  {id: 35, englishCharacter: "mo", kanaCharacter: "モ"},
-  {id: 36, englishCharacter: "ya", kanaCharacter: "ヤ"},
-  {id: 37, englishCharacter: "yu", kanaCharacter: "ユ"},
-  {id: 38, englishCharacter: "yo", kanaCharacter: "ヨ"},
-  {id: 39, englishCharacter: "ra", kanaCharacter: "ラ"},
-  {id: 40, englishCharacter: "ri", kanaCharacter: "リ"},
-  {id: 41, englishCharacter: "ru", kanaCharacter: "ル"},
-  {id: 42, englishCharacter: "re", kanaCharacter: "レ"},
-  {id: 43, englishCharacter: "ro", kanaCharacter: "ロ"},
-  {id: 44, englishCharacter: "wa", kanaCharacter: "ワ"},
-  {id: 45, englishCharacter: "wo", kanaCharacter: "ヲ"},
-  {id: 46, englishCharacter: "n", kanaCharacter: "ン"},
-];
+import {HIRAGANA, KATAKANA} from '../constants/Kana'
 
 class KanaEnglishPair extends React.Component {
 
@@ -120,6 +23,7 @@ class KanaEnglishPair extends React.Component {
       location: {}, 
       matched: false
     }
+    this.onMatched.bind(this)
   }
   componentDidMount() {
     // this.layout = event.nativeEvent.layout
@@ -141,17 +45,17 @@ class KanaEnglishPair extends React.Component {
   }
 
   onMatched() {
-    console.log("matched!")
     this.setState({matched: true})
+    this.onMatchedHandler()
   }
 
   render() {
-    console.log("rendering view for ", this.props.kanaCharacter)
   	const englishChar = this.props.englishChar;
   	const englishCharStyle = englishChar.length > 2 || /^(m|w).$/.test(englishChar) ? 
   		styles.englishCharLong : styles.englishChar;
     const kanaCharacterStyle = this.state.matched ? styles.kanaCharacterMatchedStyle :
       styles.kanaCharacterUnmatchedStyle 
+    this.onMatchedHandler = this.props.onMatchedHandler
     let column = 'A'
     switch (englishChar[0]) {
       case "n":
@@ -163,11 +67,11 @@ class KanaEnglishPair extends React.Component {
         column = 'T'
         break
       case "h":
+      case "f":
         column = 'H'
         break
       case "k":
       case "s":
-      case "f":
       case "m":
       case "r":
       case "y":
@@ -197,6 +101,11 @@ class KanaCharacter extends React.Component {
       pan: new Animated.ValueXY(),
       showDraggable: true,
     };
+    // Make sure we only compute this once so the characters aren't bouncing around the screen
+    this.marginStyle = {
+      marginTop: _.random(0, 15),
+      marginLeft: _.random(0, 15),
+    }
   }
 
   componentWillMount() {
@@ -232,19 +141,15 @@ class KanaCharacter extends React.Component {
     const panStyle = {
       transform: this.state.pan.getTranslateTransform(),
     }
+    const marginStyle = this.marginStyle
     if (this.state.showDraggable) {
-      marginStyle = {
-        marginTop: _.random(0, 10),
-        marginLeft: _.random(0, 10),
-        paddingLeft: _.random(0, 10),
-      }
       return <Animated.View
         {...this.panResponder.panHandlers}
         style={[panStyle, marginStyle]}>
         <Text style={styles.kanaCharacter}>{this.props.kanaCharacter.kanaCharacter}</Text>
       </Animated.View>
     } else {
-      return <View style={styles.kanaDraggableMatchedStyle}>
+      return <View style={[styles.kanaDraggableMatchedStyle, marginStyle]}>
         <Text />
       </View>
     }
@@ -260,6 +165,7 @@ export default class DragNDropScreen extends React.Component {
   constructor () {
     super()
     this.dropTargets = []
+    this.matched = []
   }
 
   componentDidMount() {
@@ -285,8 +191,17 @@ export default class DragNDropScreen extends React.Component {
 
   onDropAreaHit(kanaCharacter) {
     return () => {
-      console.log("drop area HIT!")
       this.dropTargets[kanaCharacter.id].onMatched()
+    }
+  }
+
+  onMatch(id) {
+    return () => {
+      this.matched.push(id)
+      if (this.matched.length == 46) {
+        console.log("All targets matched!")
+        this.props.navigation.navigate("Win")
+      }
     }
   }
 
@@ -314,6 +229,7 @@ export default class DragNDropScreen extends React.Component {
       englishChar={english} 
       kanaCharacter={kana} 
       ref={(ref) => {this.dropTargets[key] = ref}}
+      onMatchedHandler={this.onMatch(key).bind(this)}
       />
   }
 
@@ -362,7 +278,7 @@ export default class DragNDropScreen extends React.Component {
           <View style={[styles.kanaColumn, styles.columnHa]}>
             {this.createPairView(26, "ha")}
             {this.createPairView(27, "hi")}
-            {this.createPairView(28, "hu")}
+            {this.createPairView(28, "fu")}
             {this.createPairView(29, "he")}
             {this.createPairView(30, "ho")}
           </View>
@@ -491,12 +407,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
   kanaDraggableMatchedStyle: {
-    height: 20,
-    width: 20,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 5,
-    marginBottom: 5,
+    width: 30,
   },
   kanaCharacterMatchedStyle: {
     color: 'black'
@@ -513,7 +424,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     marginLeft: 10,
     marginRight: 10,
-    marginBottom: 10,
+    marginBottom: 15,
     alignSelf: 'baseline',
     flexWrap: 'wrap',
     color: 'white',

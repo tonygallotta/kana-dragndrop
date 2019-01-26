@@ -20,10 +20,11 @@ export class ParagraphText extends React.Component {
     return <Text {...this.props} 
     style={[this.props.style, 
       { 
-        fontFamily: 'press-start-2p', 
+        fontFamily: 'zcool', 
         fontSize: 18, 
         textAlign: 'left', 
         color: 'white',
+        lineHeight: 30,
     }]} />;
   }
 }

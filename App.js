@@ -43,6 +43,7 @@ export default class App extends React.Component {
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         'zcool': require('./assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf'),
         'press-start-2p': require('./assets/fonts/PressStart2P-Regular.ttf'),
+        'jackeyfont': require('./assets/fonts/jackeyfont.ttf'),
       }),
     ]);
   };
