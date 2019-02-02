@@ -1,30 +1,24 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { appStyles } from '../constants/AppStyles';
 
-export class MonoText extends React.Component {
-  render() {
-    return <Text {...this.props} style={[this.props.style, { fontFamily: 'space-mono' }]} />;
-  }
+export function HeaderText(props) {
+  const { style } = props;
+  return (
+    <Text
+      {...props}
+      style={[style,
+        { fontFamily: 'press-start-2p', fontSize: 30, textAlign: 'center' }]}
+    />
+  );
 }
 
-export class HeaderText extends React.Component {
-  render() {
-    return <Text {...this.props} 
-    style={[this.props.style, 
-      { fontFamily: 'press-start-2p', fontSize: 30, textAlign: 'center' }]} />;
-  }
-}
-
-export class ParagraphText extends React.Component {
-  render() {
-    return <Text {...this.props} 
-    style={[this.props.style, 
-      { 
-        fontFamily: 'zcool', 
-        fontSize: 18, 
-        textAlign: 'left', 
-        color: 'white',
-        lineHeight: 30,
-    }]} />;
-  }
+export function ParagraphText(props) {
+  const { style } = props;
+  return (
+    <Text
+      {...props}
+      style={[style, appStyles.normalText]}
+    />
+  );
 }

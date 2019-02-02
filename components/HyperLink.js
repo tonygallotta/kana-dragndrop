@@ -1,36 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Linking,
   Text,
-  StyleSheet
 } from 'react-native';
 
-export default class HyperLink extends Component {
+/**
+ * Renders a hyperlink to a web address that can be embedded in text.
+ * Adapted from https://stackoverflow.com/questions/30540252/display-hyperlink-in-react-native-app.
+ */
+export default class HyperLink extends React.Component {
+  constructor() {
+    super();
+    this.goToURL = this.goToURL.bind(this);
+  }
 
-  constructor(){
-      super();
-      this._goToURL = this._goToURL.bind(this);
+  goToURL() {
+    const { url } = this.props;
+    Linking.canOpenURL(url).then((supported) => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log(`Don't know how to open URI: ${url}`);
+      }
+    });
   }
 
   render() {
-
-    const { title} = this.props;
-
-    return(
-      <Text {...this.props} 
-          style={[this.props.style, {color: 'deepskyblue'}]} 
-          onPress={this._goToURL} />
+    const { style } = this.props;
+    return (
+      <Text
+        {...this.props}
+        style={[style, { color: 'deepskyblue' }]}
+        onPress={this.goToURL}
+      />
     );
-  }
-
-  _goToURL() {
-    const { url } = this.props;
-    Linking.canOpenURL(url).then(supported => {
-      if (supported) {
-        Linking.openURL(this.props.url);
-      } else {
-        console.log('Don\'t know how to open URI: ' + this.props.url);
-      }
-    });
   }
 }

@@ -12,8 +12,9 @@ import {
   View,
 } from 'react-native';
 import { ScreenOrientation } from 'expo';
-import _ from 'underscore'
-import {HIRAGANA, KATAKANA} from '../constants/Kana'
+import _ from 'underscore';
+import { HIRAGANA, KATAKANA } from '../constants/Kana';
+import Clock from '../components/Clock';
 
 class KanaEnglishPair extends React.Component {
 
@@ -25,6 +26,7 @@ class KanaEnglishPair extends React.Component {
     }
     this.onMatched.bind(this)
   }
+  
   componentDidMount() {
     // this.layout = event.nativeEvent.layout
     this.view && setTimeout(this.measureView.bind(this), 500)
@@ -320,6 +322,7 @@ export default class DragNDropScreen extends React.Component {
     	</View>
       <View style={styles.kanaToDragContainer}>
         {this.createDraggables()}
+        <Clock />
       </View>
     </View>
      );

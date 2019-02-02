@@ -21,4 +21,10 @@ export const appStyles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  normalText: {
+    fontFamily: 'zcool',
+    fontSize: 18,
+    color: 'white',
+    lineHeight: 30,
+  },
 });
