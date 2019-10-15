@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { appStyles } from '../constants/AppStyles';
+import AppStyles from '../constants/AppStyles';
 
 export function HeaderText(props) {
   const { style } = props;
@@ -18,7 +18,7 @@ export function ParagraphText(props) {
   return (
     <Text
       {...props}
-      style={[style, appStyles.normalText]}
+      style={[style, AppStyles.normalText]}
     />
   );
 }

@@ -13,7 +13,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import mascot from '../assets/images/catpix-blue.png';
-import { appStyles } from '../constants/AppStyles';
+import AppStyles from '../constants/AppStyles';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -52,17 +52,13 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.mainMenuButton}>KATAKANA</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.mainMenuButton} 
-                onPress={() => navigate('Win')}>
-              <Text style={styles.mainMenuButton}>WIN</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.mainMenuButton} 
                 onPress={() => navigate('About')}>
               <Text style={styles.mainMenuButton}>ABOUT</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <View style={appStyles.mascotContainer}>
-          <Image source={mascot} style={appStyles.mascot} />
+        <View style={AppStyles.mascotContainer}>
+          <Image source={mascot} style={AppStyles.mascot} />
         </View>
       </View>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import moment from 'moment';
 
-import { appStyles } from '../constants/AppStyles';
+import AppStyles from '../constants/AppStyles';
 
 /**
  * Renders a clock that displays elapsed time.
@@ -47,7 +47,7 @@ export default class Clock extends React.Component {
         alignItems: 'stretch',
       }}
       >
-        <Text style={[style, appStyles.normalText, { textAlign: 'right' }]}>
+        <Text style={[style, AppStyles.normalText, { textAlign: 'right' }]}>
           { displayTime }
         </Text>
       </View>

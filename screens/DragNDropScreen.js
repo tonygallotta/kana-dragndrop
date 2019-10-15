@@ -14,6 +14,7 @@ import {
 import { ScreenOrientation } from 'expo';
 import _ from 'underscore';
 import { HIRAGANA, KATAKANA } from '../constants/Kana';
+import AppStyles from '../constants/AppStyles';
 import Clock from '../components/Clock';
 
 class KanaEnglishPair extends React.Component {
@@ -125,7 +126,6 @@ class KanaCharacter extends React.Component {
           this.setState({showDraggable: false })
           this.onDropAreaHit()
         } else {
-          console.log("drop area MISSED!")
           Animated.spring(this.state.pan, {
             toValue: { x: 0, y: 0 },
             friction: 5
@@ -201,7 +201,6 @@ export default class DragNDropScreen extends React.Component {
     return () => {
       this.matched.push(id)
       if (this.matched.length == 46) {
-        console.log("All targets matched!")
         this.props.navigation.navigate("Win")
       }
     }
@@ -216,11 +215,8 @@ export default class DragNDropScreen extends React.Component {
     const upperBound = targetLayout.y + targetLayout.height + 5
     const lowerBound = targetLayout.y - 5
 
-    console.log("gesture location: ", gesture.moveX, gesture.moveY)
-    console.log("target bounds: ", leftBound, rightBound, lowerBound, upperBound)
     const insideBounds = gesture.moveX >= leftBound && gesture.moveX <= rightBound && 
       gesture.moveY >= lowerBound && gesture.moveY <= upperBound;
-    console.log("inside bounds? ", insideBounds)
     return insideBounds
   }
 
@@ -340,8 +336,6 @@ const styles = StyleSheet.create({
   },
 	kanaColumn: {
 		width: 54, 
-  //   borderWidth: 1,
-		// borderColor: 'deepskyblue',
 		textAlign: 'right',
 	},
   columnA: {

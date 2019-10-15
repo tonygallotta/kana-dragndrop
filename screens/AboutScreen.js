@@ -2,14 +2,13 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { HeaderText, ParagraphText } from '../components/StyledText';
 import HyperLink from '../components/HyperLink';
+import AppStyles from '../constants/AppStyles';
 
 export default class AboutScreen extends React.Component {
-  static navigationOptions = {
-  };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style ={AppStyles.container}>
         <HeaderText style={{color: 'white'}}>ABOUT</HeaderText>
         <ParagraphText>This app was created with inspiration from <HyperLink url="https://www.csus.edu/indiv/s/sheaa/projects/genki/hiragana-timer.html">
           Usagi-chan's Genki Resource Page
@@ -23,14 +22,4 @@ export default class AboutScreen extends React.Component {
       </ScrollView>
     );
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    paddingLeft: 15,
-    paddingRight: 5,
-    backgroundColor: 'darkslategrey',
-  },
-});
+};

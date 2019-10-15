@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { HeaderText, ParagraphText } from '../components/StyledText';
 import mascot from '../assets/images/chubbycat-dorsa.png';
-import { appStyles } from '../constants/AppStyles';
+import AppStyles from '../constants/AppStyles';
 
 export default class WinScreen extends React.Component {
   static navigationOptions = {
@@ -16,12 +16,12 @@ export default class WinScreen extends React.Component {
 
   render() {
     return (
-      <View style={appStyles.container}>
-        <View style={appStyles.mascotContainer}>
+      <View style={AppStyles.container}>
+        <View style={AppStyles.mascotContainer}>
           <Text style={styles.goodJobText}>
           よくできました
           </Text>
-          <Image source={mascot} style={appStyles.mascot} />
+          <Image source={mascot} style={AppStyles.mascot} />
         </View>
       </View>
     );
