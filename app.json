@@ -3,24 +3,25 @@
     "name": "kana-dragndrop",
     "slug": "kana-dragndrop",
     "privacy": "public",
-    "sdkVersion": "31.0.0",
+    "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
       "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/chubbycat.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/catpix-orig.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#cccccc"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/fonts/*",
+      "assets/images/*"
     ],
     "ios": {
       "supportsTablet": true
