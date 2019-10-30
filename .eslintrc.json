@@ -4,5 +4,9 @@
     "react/prop-types": [false],
     "react/jsx-filename-extension": [false],
     "no-console": [0]
-  }
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "parser": "babel-eslint"
 }
